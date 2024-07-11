@@ -18,5 +18,13 @@ public class Contact
     [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Formato de telefone inválido.")]
     public string Phone { get; set; }
     
-    public Region Region { get; set; }
+    public int Region { get; set; }
+
+    public Contact(string name, string email, string phone, int region)
+    {
+        Name = name;
+        Email = email;
+        Phone = phone;
+        Region = region;
+    }
 }

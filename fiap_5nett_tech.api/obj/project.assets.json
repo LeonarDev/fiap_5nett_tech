@@ -1597,6 +1597,20 @@
           }
         }
       },
+      "fiap_5nett_tech.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "fiap_5nett_tech.Domain": "1.0.0",
+          "fiap_5nett_tech.Infrastructure": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/fiap_5nett_tech.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/fiap_5nett_tech.Application.dll": {}
+        }
+      },
       "fiap_5nett_tech.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -1605,6 +1619,16 @@
         },
         "runtime": {
           "bin/placeholder/fiap_5nett_tech.Domain.dll": {}
+        }
+      },
+      "fiap_5nett_tech.Infrastructure/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/fiap_5nett_tech.Infrastructure.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/fiap_5nett_tech.Infrastructure.dll": {}
         }
       }
     }
@@ -4516,10 +4540,20 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "fiap_5nett_tech.Application/1.0.0": {
+      "type": "project",
+      "path": "../fiap_5nett_tech.Application/fiap_5nett_tech.Application.csproj",
+      "msbuildProject": "../fiap_5nett_tech.Application/fiap_5nett_tech.Application.csproj"
+    },
     "fiap_5nett_tech.Domain/1.0.0": {
       "type": "project",
       "path": "../fiap_5nett_tech.Domain/fiap_5nett_tech.Domain.csproj",
       "msbuildProject": "../fiap_5nett_tech.Domain/fiap_5nett_tech.Domain.csproj"
+    },
+    "fiap_5nett_tech.Infrastructure/1.0.0": {
+      "type": "project",
+      "path": "../fiap_5nett_tech.Infrastructure/fiap_5nett_tech.Infrastructure.csproj",
+      "msbuildProject": "../fiap_5nett_tech.Infrastructure/fiap_5nett_tech.Infrastructure.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4528,27 +4562,28 @@
       "Microsoft.EntityFrameworkCore.Design >= 8.0.6",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.6",
       "Swashbuckle.AspNetCore >= 6.4.0",
+      "fiap_5nett_tech.Application >= 1.0.0",
       "fiap_5nett_tech.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Guilherme\\.nuget\\packages\\": {},
+    "C:\\Users\\jonie\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Guilherme\\Documents\\Github\\balta\\Fiap\\fiap_5nett_tech\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
+      "projectUniqueName": "D:\\TechChalenge\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
       "projectName": "fiap_5nett_tech.api",
-      "projectPath": "C:\\Users\\Guilherme\\Documents\\Github\\balta\\Fiap\\fiap_5nett_tech\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
-      "packagesPath": "C:\\Users\\Guilherme\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Guilherme\\Documents\\Github\\balta\\Fiap\\fiap_5nett_tech\\fiap_5nett_tech.api\\obj\\",
+      "projectPath": "D:\\TechChalenge\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
+      "packagesPath": "C:\\Users\\jonie\\.nuget\\packages\\",
+      "outputPath": "D:\\TechChalenge\\fiap_5nett_tech.api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Guilherme\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jonie\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -4557,15 +4592,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Guilherme\\Documents\\Github\\balta\\Fiap\\fiap_5nett_tech\\fiap_5nett_tech.Domain\\fiap_5nett_tech.Domain.csproj": {
-              "projectPath": "C:\\Users\\Guilherme\\Documents\\Github\\balta\\Fiap\\fiap_5nett_tech\\fiap_5nett_tech.Domain\\fiap_5nett_tech.Domain.csproj"
+            "D:\\TechChalenge\\fiap_5nett_tech.Application\\fiap_5nett_tech.Application.csproj": {
+              "projectPath": "D:\\TechChalenge\\fiap_5nett_tech.Application\\fiap_5nett_tech.Application.csproj"
+            },
+            "D:\\TechChalenge\\fiap_5nett_tech.Domain\\fiap_5nett_tech.Domain.csproj": {
+              "projectPath": "D:\\TechChalenge\\fiap_5nett_tech.Domain\\fiap_5nett_tech.Domain.csproj"
             }
           }
         }
@@ -4623,7 +4660,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
