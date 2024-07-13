@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace fiap_5nett_tech.api.Data.Mappings;
+namespace fiap_5nett_tech.Infrastructure.Data.Mappings;
 
 public class RegionMapping : IEntityTypeConfiguration<Region>
 {

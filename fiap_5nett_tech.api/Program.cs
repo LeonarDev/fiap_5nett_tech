@@ -1,16 +1,17 @@
-using fiap_5nett_tech.api;
-using fiap_5nett_tech.api.Data;
 using fiap_5nett_tech.Application.Interface;
 using fiap_5nett_tech.Application.Service;
 using Microsoft.EntityFrameworkCore;
+using fiap_5nett_tech.Infrastructure.Data;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+//public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(Environment.GetEnvironmentVariable("DefaultConnection"))); 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); 
 builder.Services.AddScoped<ContactService>();
-builder.Services.AddScoped<ContactInterface, ContactService>();
+builder.Services.AddScoped<IContactInterface, ContactService>();
 
 builder.Services.AddControllers();
 

@@ -27,4 +27,8 @@ public class Contact
         Phone = phone;
         Region = region;
     }
+
+    public Contact()
+    {
+    }
 }

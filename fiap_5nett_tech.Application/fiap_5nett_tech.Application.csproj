@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\fiap_5nett_tech.Domain\fiap_5nett_tech.Domain.csproj" />
-      <ProjectReference Include="..\fiap_5nett_tech.Infrastructure\fiap_5nett_tech.Infrastructure.csproj" />
+      <ProjectReference Include="..\fiap_5nett_tech.Infrastructure\fiap_5nett_tech.Infrastructure.csproj" />		
     </ItemGroup>
 
 </Project>
