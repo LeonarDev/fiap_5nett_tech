@@ -1,7 +1,7 @@
 ﻿using fiap_5nett_tech.Domain.Entities;
 using fiap_5nett_tech.Domain.Repositories;
-using fiap_5nett_tech.Infrastructure.Data;
 using System.Data.Common;
+using fiap_5nett_tech.Infrastructure.Data;
 
 namespace fiap_5nett_tech.Infrastructure.Repositories
 {
