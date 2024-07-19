@@ -51,6 +51,7 @@ namespace fiap_5nett_tech.Application.Service
 
         public List<ContactResponse> GetAll(ContactRequest request)
         {
+            //TODO terminar os Services
             throw new NotImplementedException();
         }
 

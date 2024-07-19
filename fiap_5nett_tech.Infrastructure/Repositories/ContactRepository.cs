@@ -3,15 +3,18 @@ using fiap_5nett_tech.Domain.Repositories;
 using System.Data.Common;
 using fiap_5nett_tech.Infrastructure.Data;
 
+
 namespace fiap_5nett_tech.Infrastructure.Repositories
 {
     public class ContactRepository: IContactRepository
     {
         private readonly AppDbContext _context;
+        
         public ContactRepository(AppDbContext context)
         {
             _context = context;
         }
+        
         public void Create(Contact contact)
         {
             try
@@ -41,17 +44,76 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
 
         public void Delete(Contact contact)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Contacts.Remove(contact);
+                _context.SaveChanges();
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
-        public List<Contact> GetAll(Contact contact)
+        public IQueryable<Contact> GetAll(string nome, string email, int ddd, string telefone)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var contacts = _context.Contacts.AsQueryable();
+
+                if (!string.IsNullOrWhiteSpace(nome))
+                {
+                    contacts = contacts.Where(x => x.Name.Contains(nome));
+                }
+
+                if (!string.IsNullOrWhiteSpace(email))
+                {
+                    contacts = contacts.Where(x => x.Email.Contains(email));
+                }
+
+                if (ddd > 0)
+                {
+                    contacts = contacts.Where(x => x.Ddd.Ddd == ddd);
+                }
+
+                if (!string.IsNullOrWhiteSpace(telefone))
+                {
+                    contacts = contacts.Where(x => x.Phone.Contains(telefone));
+                }
+
+                return contacts;
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Enumerable.Empty<Contact>().AsQueryable();
+            }
         }
 
-        public Contact GetOne(int id)
+        public Contact? GetOne(Guid id)
         {
-            throw new NotImplementedException();
-        }               
+            try
+            {
+                return _context.Contacts.FirstOrDefault(x => x.Id == id);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
+
+        public Contact? GetOne(int ddd, string telefone)
+        {
+            try
+            {
+                return _context.Contacts.FirstOrDefault(x => x.Ddd.Ddd == ddd && x.Phone == telefone);
+            }
+            catch (DbException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }        
     }
 }
