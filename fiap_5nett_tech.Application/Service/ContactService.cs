@@ -16,7 +16,9 @@ namespace fiap_5nett_tech.Application.Service
         }
         public void Create(ContactRequest request)
         {
-            Contact contact = new(request.Name, request.Email, request.PhoneNumber, request.DDD);
+            var region = new Region(request.Ddd, "teste");
+            
+            Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
             _repository.Create(contact);
         }
 

@@ -8,13 +8,18 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 {
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<Region> Regions { get; set; }
-
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfiguration(new ContactMapping());
         modelBuilder.ApplyConfiguration(new RegionMapping());
 
-    }
+        modelBuilder.Entity<Contact>()
+            .HasOne<Region>(c => c.Ddd)
+            .WithMany(r => r.Contacts)
+            .HasForeignKey("DDD")
+            .HasConstraintName("FK_CONTACT_REGION");
+        
+        base.OnModelCreating(modelBuilder);
+    }   
 }

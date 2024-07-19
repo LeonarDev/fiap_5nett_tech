@@ -12,8 +12,8 @@ using fiap_5nett_tech.Infrastructure.Data;
 namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240714193111_ExampleMigration")]
-    partial class ExampleMigration
+    [Migration("20240719001348_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,6 +31,9 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("DDD")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -46,10 +49,9 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
                         .HasMaxLength(9)
                         .HasColumnType("VARCHAR");
 
-                    b.Property<int>("Region")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("DDD");
 
                     b.ToTable("Contact", (string)null);
                 });
@@ -57,10 +59,7 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
             modelBuilder.Entity("fiap_5nett_tech.Domain.Entities.Region", b =>
                 {
                     b.Property<int>("Ddd")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Ddd"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -70,6 +69,23 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
                     b.HasKey("Ddd");
 
                     b.ToTable("Region", (string)null);
+                });
+
+            modelBuilder.Entity("fiap_5nett_tech.Domain.Entities.Contact", b =>
+                {
+                    b.HasOne("fiap_5nett_tech.Domain.Entities.Region", "Ddd")
+                        .WithMany("Contacts")
+                        .HasForeignKey("DDD")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("FK_CONTACT_REGION");
+
+                    b.Navigation("Ddd");
+                });
+
+            modelBuilder.Entity("fiap_5nett_tech.Domain.Entities.Region", b =>
+                {
+                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

@@ -11,8 +11,11 @@ public class RegionMapping : IEntityTypeConfiguration<Region>
         builder.ToTable("Region");
         builder.HasKey(x => x.Ddd);
 
+        builder.Property(x => x.Ddd)
+            .ValueGeneratedNever();
+        
         builder.Property(x => x.Name)
-            .IsRequired(true)
+            .IsRequired()
             .HasColumnType("NVARCHAR")
             .HasMaxLength(80);
     }

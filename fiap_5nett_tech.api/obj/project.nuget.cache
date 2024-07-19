@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pGGUjZiHUT7LuA5qe+G67TqB8nQshF0jjJzVq4zYCFqp0/KOFLI2qMZhrjkxHiR9+BgF84nV8F//7aE/ulsaig==",
+  "dgSpecHash": "PzeR0RD3hLo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Guilherme\\Documents\\Github\\Fiap\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
+  "projectFilePath": "C:\\Users\\Guilherme\\Documents\\Github\\Fiap\\Projeto Final\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Guilherme\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Guilherme\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
