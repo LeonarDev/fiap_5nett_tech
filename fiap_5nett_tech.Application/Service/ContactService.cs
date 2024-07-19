@@ -9,14 +9,22 @@ namespace fiap_5nett_tech.Application.Service
     public class ContactService : IContactInterface    {
         
         private readonly IContactRepository _repository;
+        private readonly IRegionRepository _region;
                 
-        public ContactService( IContactRepository repository)
+        public ContactService( IContactRepository repository, IRegionRepository region)
         {            
-            _repository = repository;            
+            _repository = repository;
+            _region = region;
         }
         public void Create(ContactRequest request)
         {
-            var region = new Region(request.Ddd, "teste");
+            var region = _region.GetOne(request.Ddd);
+
+            if (region == null)
+            {
+                //TODO criar as exceptions
+                return;
+            }
             
             Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
             _repository.Create(contact);
@@ -42,6 +50,11 @@ namespace fiap_5nett_tech.Application.Service
         }
 
         public List<ContactResponse> GetAll(ContactRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ContactResponse> GetAllByDdd(ContactRequest request)
         {
             throw new NotImplementedException();
         }

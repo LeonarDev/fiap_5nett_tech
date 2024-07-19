@@ -14,6 +14,7 @@ namespace fiap_5nett_tech.Application.Interface
         ContactResponse GetOne(int id);
         void Update(ContactRequest request);
         List<ContactResponse> GetAll(ContactRequest request);
+        List<ContactResponse> GetAllByDdd(ContactRequest request);
 
     }
 }
