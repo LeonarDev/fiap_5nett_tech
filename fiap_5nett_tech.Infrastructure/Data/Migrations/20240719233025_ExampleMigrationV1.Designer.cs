@@ -12,8 +12,8 @@ using fiap_5nett_tech.Infrastructure.Data;
 namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240719004106_v1")]
-    partial class v1
+    [Migration("20240719233025_ExampleMigrationV1")]
+    partial class ExampleMigrationV1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

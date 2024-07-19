@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class v1 : Migration
+    public partial class ExampleMigrationV1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
