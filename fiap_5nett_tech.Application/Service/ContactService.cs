@@ -3,17 +3,18 @@ using fiap_5nett_tech.Application.Interface;
 using fiap_5nett_tech.Domain.Entities;
 using fiap_5nett_tech.Application.DataTransfer.Response;
 using fiap_5nett_tech.Domain.Repositories;
+using Azure.Core;
 
 namespace fiap_5nett_tech.Application.Service
 {
     public class ContactService : IContactInterface    {
         
-        private readonly IContactRepository _repository;
+        private readonly IContactRepository _contact;
         private readonly IRegionRepository _region;
                 
-        public ContactService( IContactRepository repository, IRegionRepository region)
+        public ContactService( IContactRepository contact, IRegionRepository region)
         {            
-            _repository = repository;
+            _contact = contact;
             _region = region;
         }
         public void Create(ContactRequest request)
@@ -27,21 +28,28 @@ namespace fiap_5nett_tech.Application.Service
             }
             
             Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
-            _repository.Create(contact);
+            _contact.Create(contact);
         }
 
 
-
-        //public async Task Create(ContactRequest request)
-        //{
-        //    Contact contact = new(request.Name, request.Email, request.PhoneNumber, request.DDD);
-        //    _context.Contacts.Add(contact);
-        //    await _context.SaveChangesAsync();
-        //}
-
         public void Update(ContactRequest contactRequest)
         {
-            throw new NotImplementedException();
+            var contact = _contact.GetOne(contactRequest.Ddd, contactRequest.PhoneNumber);
+
+            if (contact == null)
+            {
+                //TODO criar as exceptions
+                return;
+            }
+
+            if(!string.IsNullOrEmpty(contactRequest.Name))
+            contact.Name = contactRequest.Name;
+
+            if (!string.IsNullOrEmpty(contactRequest.Email))
+                contact.Email = contactRequest.Email;
+
+            _contact.Update(contact);
+           
         }
 
         public ContactResponse GetOne(int id)
