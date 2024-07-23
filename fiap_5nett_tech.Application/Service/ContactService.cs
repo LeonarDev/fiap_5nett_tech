@@ -4,6 +4,7 @@ using fiap_5nett_tech.Domain.Entities;
 using fiap_5nett_tech.Application.DataTransfer.Response;
 using fiap_5nett_tech.Domain.Repositories;
 using Azure.Core;
+using Microsoft.IdentityModel.Tokens;
 
 namespace fiap_5nett_tech.Application.Service
 {
@@ -17,55 +18,128 @@ namespace fiap_5nett_tech.Application.Service
             _contact = contact;
             _region = region;
         }
-        public void Create(ContactRequest request)
+        
+        public ContactResponse<Contact?> Create(ContactRequest request)
         {
-            var region = _region.GetOne(request.Ddd);
-
-            if (region == null)
+            try
             {
-                //TODO criar as exceptions
-                return;
+                var region = _region.GetOne(request.Ddd);
+
+                if (region == null)
+                {
+                    return new ContactResponse<Contact?>(null, 400, "Região não encontrada!");;
+                }
+
+                Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
+                _contact.Create(contact);
+                return new ContactResponse<Contact?>(contact, 201, "Contato criado com sucesso!");
             }
+            catch
+            {
+                //Serilog
+                return new ContactResponse<Contact?>(null, 500, "Não foi possível criar o contato!");
+            }
+        }
+
+
+
+        public ContactResponse<Contact?> Update(ContactRequest contactRequest)
+        {
+            try
+            {
+                var contact = _contact.GetOne(contactRequest.Ddd, contactRequest.PhoneNumber);
+                
+                if (contact is null)
+                    return new ContactResponse<Contact?>(null, 404, "Contato não encontrada!");
+                
+                if(!string.IsNullOrEmpty(contactRequest.Name))
+                    contact.Name = contactRequest.Name;
+
+                if (!string.IsNullOrEmpty(contactRequest.Email))
+                    contact.Email = contactRequest.Email;
+
+                _contact.Update(contact);
+                
+                return new ContactResponse<Contact?>(contact, message: "Contato atualizado com sucesso!");
+            }
+            catch
+            {
+                return new ContactResponse<Contact?>(null, 500, "Não foi possível atualizar o contato!");
+            }
+        }
+
+        public ContactResponse<Contact?> GetOne(Guid id)
+        {
+            try
+            {
+                var contact = _contact.GetOne(id);
+
+                return contact is null ?
+                    new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
+                    : new ContactResponse<Contact?>(contact);
+            }
+            catch
+            {
+                return new ContactResponse<Contact?>(null, 500, "Não foi possível recuperar o Contato!");
+            }
+        }
+        
+        public ContactResponse<Contact?> GetOne(int ddd, string telefone)
+        {
+            try
+            {
+                var contact = _contact.GetOne(ddd, telefone);
+
+                return contact is null ?
+                    new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
+                    : new ContactResponse<Contact?>(contact);
+            }
+            catch
+            {
+                return new ContactResponse<Contact?>(null, 500, "Não foi possível recuperar o Contato!");
+            }
+        }
+
+        public PagedContactResponse<List<Contact>?> GetAll(GetAllContactRequest request)
+        {
+            try
+            {
+                var query = _contact.GetAll(request.Name, request.Email, request.Ddd, request.PhoneNumber);
+                
+                var contacts = query
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToList();
+
+                var count = query.Count();
             
-            Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
-            _contact.Create(contact);
-        }
-
-
-        public void Update(ContactRequest contactRequest)
-        {
-            var contact = _contact.GetOne(contactRequest.Ddd, contactRequest.PhoneNumber);
-
-            if (contact == null)
-            {
-                //TODO criar as exceptions
-                return;
+                return new PagedContactResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
             }
-
-            if(!string.IsNullOrEmpty(contactRequest.Name))
-            contact.Name = contactRequest.Name;
-
-            if (!string.IsNullOrEmpty(contactRequest.Email))
-                contact.Email = contactRequest.Email;
-
-            _contact.Update(contact);
-           
+            catch
+            {
+                return new PagedContactResponse<List<Contact>?>(null, 500, "Não foi possível consultar os Contatos!");
+            }
         }
 
-        public ContactResponse GetOne(int id)
+        public PagedContactResponse<List<Contact>?> GetAllByDdd(GetAllContactRequest request)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                var query = _contact.GetAll("", "", request.Ddd, "");
+                
+                var contacts = query
+                    .Skip((request.PageNumber - 1) * request.PageSize)
+                    .Take(request.PageSize)
+                    .ToList();
 
-        public List<ContactResponse> GetAll(ContactRequest request)
-        {
-            //TODO terminar os Services
-            throw new NotImplementedException();
-        }
-
-        public List<ContactResponse> GetAllByDdd(ContactRequest request)
-        {
-            throw new NotImplementedException();
+                var count = query.Count();
+            
+                return new PagedContactResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedContactResponse<List<Contact>?>(null, 500, "Não foi possível consultar os Contatos!");
+            }
         }
     }
 }

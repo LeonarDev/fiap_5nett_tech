@@ -2,6 +2,7 @@
 using fiap_5nett_tech.Domain.Repositories;
 using System.Data.Common;
 using fiap_5nett_tech.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace fiap_5nett_tech.Infrastructure.Repositories
@@ -80,7 +81,7 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
                 {
                     contacts = contacts.Where(x => x.Phone.Contains(telefone));
                 }
-
+                
                 return contacts;
             }
             catch (DbException ex)
@@ -94,7 +95,9 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
         {
             try
             {
-                return _context.Contacts.FirstOrDefault(x => x.Id == id);
+                return _context
+                    .Contacts
+                    .FirstOrDefault(x => x.Id == id);
             }
             catch (DbException ex)
             {
@@ -107,7 +110,9 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
         {
             try
             {
-                return _context.Contacts.FirstOrDefault(x => x.Ddd.Ddd == ddd && x.Phone == telefone);
+                return _context
+                    .Contacts
+                    .FirstOrDefault(x => x.Ddd.Ddd == ddd && x.Phone == telefone);
             }
             catch (DbException ex)
             {

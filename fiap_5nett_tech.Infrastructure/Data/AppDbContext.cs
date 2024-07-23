@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace fiap_5nett_tech.Infrastructure.Data;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<Region> Regions { get; set; }
-    
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new ContactMapping());
@@ -21,6 +21,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             .HasConstraintName("FK_CONTACT_REGION");
         
         base.OnModelCreating(modelBuilder);
+
+        
 
         modelBuilder.Entity<Region>().HasData(
         [
