@@ -36,6 +36,11 @@ namespace fiap_5nett_tech.Application.Service
                     return new ContactResponse<Contact?>(null, 400, "Telefone já Cadastrado!");
                 }
 
+                if (request.PhoneNumber.Length != 9)
+                {
+                    return new ContactResponse<Contact?>(null, 400, "Quantidade de caracteres de telefone invalido!");
+                }
+
                 Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
                 _contact.Create(contact);
                 return new ContactResponse<Contact?>(contact, 201, "Contato criado com sucesso!");
