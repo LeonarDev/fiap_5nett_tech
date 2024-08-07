@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("fiap_5nett_tech.api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+af26574c23cfba3cd505b22c621a2732ef17746f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+06da41531728e5b67a82364b0ac41e4a4215b015")]
 [assembly: System.Reflection.AssemblyProductAttribute("fiap_5nett_tech.api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("fiap_5nett_tech.api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

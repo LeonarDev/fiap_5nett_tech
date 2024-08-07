@@ -1,24 +1,25 @@
-﻿using fiap_5nett_tech.Application.DataTransfer.Request;
+﻿using System.ComponentModel.DataAnnotations;
+using fiap_5nett_tech.Application.DataTransfer.Request;
 using fiap_5nett_tech.Application.Interface;
 using fiap_5nett_tech.Domain.Entities;
 using fiap_5nett_tech.Application.DataTransfer.Response;
 using fiap_5nett_tech.Domain.Repositories;
-using Azure.Core;
-using Microsoft.IdentityModel.Tokens;
+
 
 namespace fiap_5nett_tech.Application.Service
 {
-    public class ContactService : IContactInterface    {
-        
+    public class ContactService : IContactInterface
+    {
+
         private readonly IContactRepository _contact;
         private readonly IRegionRepository _region;
-                
-        public ContactService( IContactRepository contact, IRegionRepository region)
-        {            
+
+        public ContactService(IContactRepository contact, IRegionRepository region)
+        {
             _contact = contact;
             _region = region;
         }
-        
+
         public ContactResponse<Contact?> Create(ContactRequest request)
         {
             try
@@ -27,7 +28,7 @@ namespace fiap_5nett_tech.Application.Service
 
                 if (region == null)
                 {
-                    return new ContactResponse<Contact?>(null, 400, "Região não encontrada!");;
+                    return new ContactResponse<Contact?>(null, 400, "Região não encontrada!");
                 }
 
                 Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
@@ -36,7 +37,6 @@ namespace fiap_5nett_tech.Application.Service
             }
             catch
             {
-                //Serilog
                 return new ContactResponse<Contact?>(null, 500, "Não foi possível criar o contato!");
             }
         }
@@ -48,18 +48,18 @@ namespace fiap_5nett_tech.Application.Service
             try
             {
                 var contact = _contact.GetOne(contactRequest.Ddd, contactRequest.PhoneNumber);
-                
+
                 if (contact is null)
                     return new ContactResponse<Contact?>(null, 404, "Contato não encontrada!");
-                
-                if(!string.IsNullOrEmpty(contactRequest.Name))
+
+                if (!string.IsNullOrEmpty(contactRequest.Name))
                     contact.Name = contactRequest.Name;
 
                 if (!string.IsNullOrEmpty(contactRequest.Email))
                     contact.Email = contactRequest.Email;
 
                 _contact.Update(contact);
-                
+
                 return new ContactResponse<Contact?>(contact, message: "Contato atualizado com sucesso!");
             }
             catch
@@ -74,8 +74,8 @@ namespace fiap_5nett_tech.Application.Service
             {
                 var contact = _contact.GetOne(id);
 
-                return contact is null ?
-                    new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
+                return contact is null
+                    ? new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
                     : new ContactResponse<Contact?>(contact);
             }
             catch
@@ -83,15 +83,15 @@ namespace fiap_5nett_tech.Application.Service
                 return new ContactResponse<Contact?>(null, 500, "Não foi possível recuperar o Contato!");
             }
         }
-        
+
         public ContactResponse<Contact?> GetOne(int ddd, string telefone)
         {
             try
             {
                 var contact = _contact.GetOne(ddd, telefone);
 
-                return contact is null ?
-                    new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
+                return contact is null
+                    ? new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
                     : new ContactResponse<Contact?>(contact);
             }
             catch
@@ -105,14 +105,14 @@ namespace fiap_5nett_tech.Application.Service
             try
             {
                 var query = _contact.GetAll(request.Name, request.Email, request.Ddd, request.PhoneNumber);
-                
+
                 var contacts = query
                     .Skip((request.PageNumber - 1) * request.PageSize)
                     .Take(request.PageSize)
                     .ToList();
 
                 var count = query.Count();
-            
+
                 return new PagedContactResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
             }
             catch
@@ -126,14 +126,14 @@ namespace fiap_5nett_tech.Application.Service
             try
             {
                 var query = _contact.GetAll("", "", request.Ddd, "");
-                
+
                 var contacts = query
                     .Skip((request.PageNumber - 1) * request.PageSize)
                     .Take(request.PageSize)
                     .ToList();
 
                 var count = query.Count();
-            
+
                 return new PagedContactResponse<List<Contact>?>(contacts, count, request.PageNumber, request.PageSize);
             }
             catch
@@ -141,5 +141,6 @@ namespace fiap_5nett_tech.Application.Service
                 return new PagedContactResponse<List<Contact>?>(null, 500, "Não foi possível consultar os Contatos!");
             }
         }
+
     }
 }

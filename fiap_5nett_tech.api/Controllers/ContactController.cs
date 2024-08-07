@@ -1,4 +1,5 @@
-﻿using fiap_5nett_tech.Application.DataTransfer.Request;
+﻿using System.ComponentModel.DataAnnotations;
+using fiap_5nett_tech.Application.DataTransfer.Request;
 using fiap_5nett_tech.Application.DataTransfer.Response;
 using fiap_5nett_tech.Application.Interface;
 using fiap_5nett_tech.Domain.Entities;
@@ -17,15 +18,32 @@ public class ContactController : ControllerBase
     }
 
     [HttpPost]
-    public void Create([FromBody] ContactRequest contactRequest)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult Create([FromBody] ContactRequest contactRequest)
     {
-        _contactInterface.Create(contactRequest);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        var response = _contactInterface.Create(contactRequest);
+        
+        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
     }
 
     [HttpPut]
-    public void Update([FromBody] ContactRequest contactRequest)
+    public IActionResult Update([FromBody] ContactRequest contactRequest)
     {
-        _contactInterface.Update(contactRequest);
+        /*if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }*/
+        
+        var response = _contactInterface.Update(contactRequest);
+        
+        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
     }
 
     [HttpGet]
