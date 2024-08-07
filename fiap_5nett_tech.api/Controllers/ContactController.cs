@@ -36,11 +36,6 @@ public class ContactController : ControllerBase
     [HttpPut]
     public IActionResult Update([FromBody] ContactRequest contactRequest)
     {
-        /*if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }*/
-        
         var response = _contactInterface.Update(contactRequest);
         
         return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);

@@ -31,6 +31,11 @@ namespace fiap_5nett_tech.Application.Service
                     return new ContactResponse<Contact?>(null, 400, "Região não encontrada!");
                 }
 
+                if (_contact.GetOne(request.Ddd, request.PhoneNumber) != null)
+                {
+                    return new ContactResponse<Contact?>(null, 400, "Telefone já Cadastrado!");
+                }
+
                 Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
                 _contact.Create(contact);
                 return new ContactResponse<Contact?>(contact, 201, "Contato criado com sucesso!");
@@ -40,8 +45,6 @@ namespace fiap_5nett_tech.Application.Service
                 return new ContactResponse<Contact?>(null, 500, "Não foi possível criar o contato!");
             }
         }
-
-
 
         public ContactResponse<Contact?> Update(ContactRequest contactRequest)
         {

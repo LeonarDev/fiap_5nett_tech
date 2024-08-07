@@ -16,7 +16,6 @@ namespace fiap_5nett_tech.Application.DataTransfer.Request
         [RegularExpression(@"^\+?[1-9]\d{1,14}$", ErrorMessage = "Formato de telefone inválido.")]
         public string PhoneNumber { get; set; }       
         
-        
         public int Ddd { get; set; }
 
     }
