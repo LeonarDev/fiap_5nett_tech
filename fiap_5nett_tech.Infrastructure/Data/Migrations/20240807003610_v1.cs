@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class ExampleMigrationV1 : Migration
+    public partial class v1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,14 +33,14 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
                     Name = table.Column<string>(type: "NVARCHAR(80)", maxLength: 80, nullable: false),
                     Email = table.Column<string>(type: "NVARCHAR(255)", maxLength: 255, nullable: false),
                     Phone = table.Column<string>(type: "VARCHAR(9)", maxLength: 9, nullable: false),
-                    DDD = table.Column<int>(type: "int", nullable: false)
+                    Ddd = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contact", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CONTACT_REGION",
-                        column: x => x.DDD,
+                        column: x => x.Ddd,
                         principalTable: "Region",
                         principalColumn: "Ddd",
                         onDelete: ReferentialAction.Cascade);
@@ -121,9 +121,9 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contact_DDD",
+                name: "IX_Contact_Ddd",
                 table: "Contact",
-                column: "DDD");
+                column: "Ddd");
         }
 
         /// <inheritdoc />

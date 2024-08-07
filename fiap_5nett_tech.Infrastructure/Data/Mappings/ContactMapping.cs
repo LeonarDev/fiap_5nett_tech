@@ -25,5 +25,6 @@ public class ContactMapping : IEntityTypeConfiguration<Contact>
             .IsRequired(true)
             .HasColumnType("VARCHAR")
             .HasMaxLength(9);
+        
     }
 }

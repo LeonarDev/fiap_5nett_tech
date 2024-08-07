@@ -74,7 +74,7 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
 
                 if (ddd > 0)
                 {
-                    contacts = contacts.Where(x => x.Ddd.Ddd == ddd);
+                    contacts = contacts.Where(x => x.Region.Ddd == ddd);
                 }
 
                 if (!string.IsNullOrWhiteSpace(telefone))
@@ -112,7 +112,7 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
             {
                 return _context
                     .Contacts
-                    .FirstOrDefault(x => x.Ddd.Ddd == ddd && x.Phone == telefone);
+                    .FirstOrDefault(x => x.Region.Ddd == ddd && x.Phone == telefone);
             }
             catch (DbException ex)
             {

@@ -1,4 +1,6 @@
-﻿namespace fiap_5nett_tech.Domain.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace fiap_5nett_tech.Domain.Entities;
 
 public class Contact
 {
@@ -10,14 +12,17 @@ public class Contact
     
     public string Phone { get; set; }
     
-    public Region Ddd { get; set; }
+    [JsonIgnore]
+    public Region Region { get; set; }
+    
+    public int Ddd { get; set; }
 
-    public Contact(string name, string email, string phone, Region ddd)
+    public Contact(string name, string email, string phone, Region region)
     {
         Name = name;
         Email = email;
         Phone = phone;
-        Ddd = ddd;
+        Region = region;
     }
 
     public Contact()

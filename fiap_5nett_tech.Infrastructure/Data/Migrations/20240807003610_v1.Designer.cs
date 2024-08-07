@@ -12,8 +12,8 @@ using fiap_5nett_tech.Infrastructure.Data;
 namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240719233025_ExampleMigrationV1")]
-    partial class ExampleMigrationV1
+    [Migration("20240807003610_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("DDD")
+                    b.Property<int>("Ddd")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -51,7 +51,7 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DDD");
+                    b.HasIndex("Ddd");
 
                     b.ToTable("Contact", (string)null);
                 });
@@ -410,14 +410,14 @@ namespace fiap_5nett_tech.Infrastructure.Data.Migrations
 
             modelBuilder.Entity("fiap_5nett_tech.Domain.Entities.Contact", b =>
                 {
-                    b.HasOne("fiap_5nett_tech.Domain.Entities.Region", "Ddd")
+                    b.HasOne("fiap_5nett_tech.Domain.Entities.Region", "Region")
                         .WithMany("Contacts")
-                        .HasForeignKey("DDD")
+                        .HasForeignKey("Ddd")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("FK_CONTACT_REGION");
 
-                    b.Navigation("Ddd");
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("fiap_5nett_tech.Domain.Entities.Region", b =>

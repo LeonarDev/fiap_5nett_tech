@@ -15,9 +15,9 @@ public class AppDbContext(DbContextOptions options) : DbContext(options)
         modelBuilder.ApplyConfiguration(new RegionMapping());
 
         modelBuilder.Entity<Contact>()
-            .HasOne<Region>(c => c.Ddd)
+            .HasOne<Region>(c => c.Region)
             .WithMany(r => r.Contacts)
-            .HasForeignKey("DDD")
+            .HasForeignKey(c => c.Ddd)
             .HasConstraintName("FK_CONTACT_REGION");
         
         base.OnModelCreating(modelBuilder);
