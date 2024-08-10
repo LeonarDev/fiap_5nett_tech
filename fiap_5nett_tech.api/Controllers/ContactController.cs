@@ -51,8 +51,8 @@ public class ContactController : ControllerBase
     public IActionResult Update([FromBody] ContactRequest contactRequest)
     {
         var response = _contactInterface.Update(contactRequest);
-        
-        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
+
+        return response.IsSuccess ? Ok(response) : BadRequest(response);        
     }
 
     /// <summary>
@@ -109,7 +109,8 @@ public class ContactController : ControllerBase
 
     {
         var response = _contactInterface.Delete(ddd, telefone);
-        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
+        return response.IsSuccess ? Ok(response) : BadRequest(response);
+        
     }
 
 

@@ -49,6 +49,11 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
             {
                 var contact = _context.Contacts.FirstOrDefault(x => x.Region.Ddd == ddd && x.Phone == telefone);
 
+                if (contact is null)
+                {
+                    return null;
+
+                }
                 _context.Contacts.Remove(contact);
                 _context.SaveChanges();
                 return contact;
