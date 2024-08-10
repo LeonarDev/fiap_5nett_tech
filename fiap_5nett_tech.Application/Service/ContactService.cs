@@ -108,6 +108,23 @@ namespace fiap_5nett_tech.Application.Service
             }
         }
 
+        public ContactResponse<Contact?> Delete(int ddd, string telefone)
+        {
+            try
+            {
+                var contact = _contact.Delete(ddd, telefone);
+
+                return contact is null
+                    ? new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
+                    : new ContactResponse<Contact?>(contact);
+            }
+            catch
+            {
+                return new ContactResponse<Contact?>(null, 500, "Não foi possível recuperar o Contato!");
+            }
+        }
+
+
         public PagedContactResponse<List<Contact>?> GetAll(GetAllContactRequest request)
         {
             try

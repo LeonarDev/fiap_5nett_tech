@@ -11,7 +11,7 @@ namespace fiap_5nett_tech.Domain.Repositories
     {
         void Create(Contact contact);
         void Update(Contact contact);
-        void Delete(Contact contact);
+        Contact? Delete(int ddd, string telefone);
         IQueryable<Contact> GetAll(string nome, string email, int ddd, string telefone);
         Contact? GetOne(Guid id);
         Contact? GetOne(int ddd, string telefone);

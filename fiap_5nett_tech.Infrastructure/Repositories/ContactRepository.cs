@@ -7,15 +7,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace fiap_5nett_tech.Infrastructure.Repositories
 {
-    public class ContactRepository: IContactRepository
+    public class ContactRepository : IContactRepository
     {
         private readonly AppDbContext _context;
-        
+
         public ContactRepository(AppDbContext context)
         {
             _context = context;
         }
-        
+
         public void Create(Contact contact)
         {
             try
@@ -26,7 +26,7 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
             catch (DbException ex)
             {
                 Console.WriteLine(ex.Message);
-            } 
+            }
         }
 
         public void Update(Contact contact)
@@ -43,16 +43,21 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
 
         }
 
-        public void Delete(Contact contact)
+        public Contact? Delete(int ddd, string telefone)
         {
             try
             {
+                var contact = _context.Contacts.FirstOrDefault(x => x.Region.Ddd == ddd && x.Phone == telefone);
+
                 _context.Contacts.Remove(contact);
                 _context.SaveChanges();
+                return contact;
+
             }
             catch (DbException ex)
             {
                 Console.WriteLine(ex.Message);
+                return null;
             }
         }
 
@@ -81,7 +86,7 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
                 {
                     contacts = contacts.Where(x => x.Phone.Contains(telefone));
                 }
-                
+
                 return contacts;
             }
             catch (DbException ex)
@@ -119,6 +124,6 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
                 Console.WriteLine(ex.Message);
                 return null;
             }
-        }        
+        }
     }
 }

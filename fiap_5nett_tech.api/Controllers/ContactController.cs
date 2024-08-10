@@ -90,7 +90,29 @@ public class ContactController : ControllerBase
         var response =  _contactInterface.GetOne(ddd, telefone);
         return response.IsSuccess ? Ok(response) : BadRequest(response);
     }
-    //StatusCode(response.Code)
+
+    /// <summary>
+    /// Deleta um contato pelo DDD e número de telefone.
+    /// </summary>
+    /// <param name="ddd">DDD do contato.</param>
+    /// <param name="telefone">Número de telefone do contato.</param>
+    /// <response code="200">Retorna o contato se encontrado.</response>
+    /// <response code="400">Se o contato não for encontrado.</response>
+    /// <response code="500">Houve um erro interno no servidor.</response>
+    /// <returns>Um objeto de resposta de contato.</returns>
+    [HttpDelete]
+    [Route("{ddd:int}/{telefone}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult Delete([FromRoute] int ddd, [FromRoute] string telefone)
+
+    {
+        var response = _contactInterface.Delete(ddd, telefone);
+        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
+    }
+
+
     /// <summary>
     /// Obtém todos os contatos
     /// </summary>
