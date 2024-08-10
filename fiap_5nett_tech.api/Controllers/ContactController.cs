@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Azure;
 using fiap_5nett_tech.Application.DataTransfer.Request;
 using fiap_5nett_tech.Application.DataTransfer.Response;
 using fiap_5nett_tech.Application.Interface;
@@ -82,10 +83,11 @@ public class ContactController : ControllerBase
     [Route("{ddd:int}/{telefone}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]    
-    public ContactResponse<Contact?> GetOne([FromRoute] int ddd, [FromRoute] string telefone)
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public IActionResult<ContactResponse<Contact?>> GetOne([FromRoute] int ddd, [FromRoute] string telefone)
     {
-        return _contactInterface.GetOne(ddd, telefone);
+        var response =  _contactInterface.GetOne(ddd, telefone);
+        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
     }
 
     /// <summary>
