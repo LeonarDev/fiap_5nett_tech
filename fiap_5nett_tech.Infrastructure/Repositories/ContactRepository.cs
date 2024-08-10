@@ -56,7 +56,7 @@ namespace fiap_5nett_tech.Infrastructure.Repositories
             }
         }
 
-        public IQueryable<Contact> GetAll(string nome, string email, int ddd, string telefone)
+        public IQueryable<Contact> GetAll(string? nome, string? email, int ddd, string? telefone)
         {
             try
             {

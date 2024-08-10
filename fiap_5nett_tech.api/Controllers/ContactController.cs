@@ -59,7 +59,7 @@ public class ContactController : ControllerBase
     /// </summary>
     /// <param name="id">ID do contato.</param>
     /// <response code="200">Retorna o contato se encontrado.</response>
-    /// <response code="404">Se o contato não for encontrado.</response>
+    /// <response code="400">Se o contato não for encontrado.</response>
     /// <response code="500">Houve um erro interno no servidor.</response>
     /// <returns>Um objeto de resposta de contato.</returns>
     [HttpGet]
@@ -75,11 +75,14 @@ public class ContactController : ControllerBase
     /// <param name="ddd">DDD do contato.</param>
     /// <param name="telefone">Número de telefone do contato.</param>
     /// <response code="200">Retorna o contato se encontrado.</response>
-    /// <response code="404">Se o contato não for encontrado.</response>
+    /// <response code="400">Se o contato não for encontrado.</response>
     /// <response code="500">Houve um erro interno no servidor.</response>
     /// <returns>Um objeto de resposta de contato.</returns>
     [HttpGet]
     [Route("{ddd:int}/{telefone}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]    
     public ContactResponse<Contact?> GetOne([FromRoute] int ddd, [FromRoute] string telefone)
     {
         return _contactInterface.GetOne(ddd, telefone);
