@@ -84,12 +84,13 @@ public class ContactController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public IActionResult<ContactResponse<Contact?>> GetOne([FromRoute] int ddd, [FromRoute] string telefone)
+    public ActionResult<ContactResponse<Contact?>> GetOne([FromRoute] int ddd, [FromRoute] string telefone)
+
     {
         var response =  _contactInterface.GetOne(ddd, telefone);
-        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
+        return response.IsSuccess ? Ok(response) : BadRequest(response);
     }
-
+    //StatusCode(response.Code)
     /// <summary>
     /// Obtém todos os contatos
     /// </summary>
