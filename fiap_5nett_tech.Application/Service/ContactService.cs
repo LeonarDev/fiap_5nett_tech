@@ -120,7 +120,7 @@ namespace fiap_5nett_tech.Application.Service
             }
             catch
             {
-                return new ContactResponse<Contact?>(null, 500, "Não foi possível recuperar o Contato!");
+                return new ContactResponse<Contact?>(null, 500, "Não foi possível Deletar o Contato!");
             }
         }
 
