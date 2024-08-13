@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "L4jEzlnXz8peEPe1vVB/cybQkVERBl3YwWXF2olR3Dx2Lrzs7F1y5cbB0/if6yC/NbR+ZWdZC16nA9q5BTHRVQ==",
+  "dgSpecHash": "CS38qhXzsNmUHRD6epbRuHjl0EaCyzBMs11uAUNAVEzlhKvjnmuhvfDkJ/1HsON+x4IXCByRT+Rc2a0NQ5Oudg==",
   "success": true,
   "projectFilePath": "D:\\TechChalenge\\fiap_5nett_tech.api\\fiap_5nett_tech.api.csproj",
   "expectedPackageFiles": [
@@ -87,5 +87,12 @@
     "C:\\Users\\jonie\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\jonie\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Você está executando a operação 'restore' com uma fonte 'HTTP', 'http://vm-build/VCOMNugetServer/nuget'. O acesso não HTTPS será removido em uma versão futura. Considere migrar para uma fonte 'HTTPS'."
+    }
+  ]
 }

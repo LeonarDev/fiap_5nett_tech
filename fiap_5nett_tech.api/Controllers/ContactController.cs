@@ -99,7 +99,7 @@ public class ContactController : ControllerBase
     /// <response code="200">Retorna o contato se encontrado.</response>
     /// <response code="400">Se o contato não for encontrado.</response>
     /// <response code="500">Houve um erro interno no servidor.</response>
-    /// <returns>Um objeto de resposta de contato.</returns>
+    /// <returns>Uma resposta de contato Deletado.</returns>
     [HttpDelete]
     [Route("{ddd:int}/{telefone}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
