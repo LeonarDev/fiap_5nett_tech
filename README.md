@@ -4,7 +4,7 @@
 
 <br>
 
-Quadro do fluxo de desenvolvimento das atividades: https://trello.com/b/0eiKfvoQ/5nett-fiap-tech-challenger
+Quadro do fluxo de desenvolvimento: https://trello.com/b/0eiKfvoQ/5nett-fiap-tech-challenger
 
 <br>
 
