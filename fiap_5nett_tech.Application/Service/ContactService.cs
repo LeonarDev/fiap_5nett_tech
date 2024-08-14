@@ -58,7 +58,7 @@ namespace fiap_5nett_tech.Application.Service
                 var contact = _contact.GetOne(contactRequest.Ddd, contactRequest.PhoneNumber);
 
                 if (contact is null)
-                    return new ContactResponse<Contact?>(null, 404, "Contato não encontrada!");
+                    return new ContactResponse<Contact?>(null, 404, "Contato não encontrado!");
 
                 if (!string.IsNullOrEmpty(contactRequest.Name))
                     contact.Name = contactRequest.Name;
@@ -116,7 +116,7 @@ namespace fiap_5nett_tech.Application.Service
 
                 return contact is null
                     ? new ContactResponse<Contact?>(null, 404, "Contato não encontrado!")
-                    : new ContactResponse<Contact?>(contact);
+                    : new ContactResponse<Contact?>(contact, 200, "Contato excluído com sucesso!");
             }
             catch
             {
