@@ -22,7 +22,7 @@ public class ContactController : ControllerBase
     /// Cria um novo contato.
     /// </summary>
     /// <param name="contactRequest">O objeto de solicitação de criação do contato.</param>
-    /// <response code="201">Retorna o novo contato criado.</response>
+    /// <response code="200">Retorna o novo contato criado.</response>
     /// <response code="400">Solicitação inválida.</response>
     /// <response code="500">Houve um erro interno no servidor.</response>
     /// <returns>Uma resposta de contato recém-criada.</returns>
@@ -36,7 +36,7 @@ public class ContactController : ControllerBase
         
         var response = _contactInterface.Create(contactRequest);
         
-        return response.IsSuccess ? StatusCode(response.Code) : StatusCode(response.Code, response);
+        return response.IsSuccess ? Ok(response) : Problem(null, null, 500, response.Message);
     }
 
     /// <summary>
@@ -81,9 +81,6 @@ public class ContactController : ControllerBase
     /// <returns>Um objeto de resposta de contato.</returns>
     [HttpGet]
     [Route("{ddd:int}/{telefone}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public ActionResult<ContactResponse<Contact?>> GetOne([FromRoute] int ddd, [FromRoute] string telefone)
 
     {

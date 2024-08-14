@@ -43,7 +43,7 @@ namespace fiap_5nett_tech.Application.Service
 
                 Contact contact = new(request.Name, request.Email, request.PhoneNumber, region);
                 _contact.Create(contact);
-                return new ContactResponse<Contact?>(contact, 201, "Contato criado com sucesso!");
+                return new ContactResponse<Contact?>(contact, 200, "Contato criado com sucesso!");
             }
             catch
             {

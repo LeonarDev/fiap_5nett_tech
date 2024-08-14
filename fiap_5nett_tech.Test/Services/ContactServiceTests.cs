@@ -3,7 +3,9 @@ using fiap_5nett_tech.Application.Service;
 using fiap_5nett_tech.Domain.Repositories;
 using fiap_5nett_tech.Application.DataTransfer.Request;
 using fiap_5nett_tech.Domain.Entities;
+
 namespace fiap_5nett_tech.Test.Services;
+
 public class ContactServiceTests
 {
     private readonly Mock<IContactRepository> _mockContactRepository;
@@ -38,7 +40,7 @@ public class ContactServiceTests
 
         
         Assert.NotNull(response);
-        Assert.Equal(201, response.Code);
+        Assert.Equal(200, response.Code);
         Assert.Equal("Contato criado com sucesso!", response.Message);
         Assert.NotNull(response.Data);
         _mockContactRepository.Verify(c => c.Create(It.IsAny<Contact>()), Times.Once);
