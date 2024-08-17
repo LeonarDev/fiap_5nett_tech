@@ -11,13 +11,29 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Build
+        run: dotnet build
 
-      - name: Run a one-line script
-        run: echo Hello, world!
+  test:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run tests
+        run: dotnet test
 
-      - name: Run a multi-line script
-        run: |
-          echo Criar uma Action workflow para executar um docker-compose que cria o banco de dados e, em seguida, builda a aplicação .NET
+  deploy:
+    needs: test
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Deploy
+        run: echo TESTE
+
+  # Executando containers via actions: 
+  # https://docs.github.com/pt/actions/sharing-automations/creating-actions/creating-a-docker-container-action
+  # https://docs.github.com/pt/actions/sharing-automations/creating-actions
+  # https://docs.github.com/pt/actions/use-cases-and-examples
