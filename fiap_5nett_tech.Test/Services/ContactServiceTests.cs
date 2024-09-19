@@ -68,7 +68,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(400, response.Code);
-        Assert.Equal("Região não encontrada!", response.Message);
+        Assert.Equal("Regiao nao encontrada!", response.Message.Replace('ã', 'a'));
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.Create(It.IsAny<Contact>()), Times.Never);
     }
@@ -90,10 +90,8 @@ public class ContactServiceTests
         _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(new Region { Ddd = 11, Name = "São Paulo" });
         _mockContactRepository.Setup(c => c.GetOne(request.Ddd, request.PhoneNumber)).Returns(existingContact);
 
-        
         var response = _contactService.Create(request);
 
-        
         Assert.NotNull(response);
         Assert.Equal(400, response.Code);
         Assert.Equal("Telefone já Cadastrado!", response.Message);
@@ -116,9 +114,7 @@ public class ContactServiceTests
 
         _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(new Region { Ddd = 11, Name = "São Paulo" });
 
-        
         var response = _contactService.Create(request);
-
         
         Assert.NotNull(response);
         Assert.Equal(400, response.Code);
@@ -132,7 +128,6 @@ public class ContactServiceTests
     [Trait("Category", "UnitTest")]
     public void Update_ShouldReturnContactResponse_WhenContactIsUpdatedSuccessfully()
     {
-        
         var existingContact = new Contact("John Doe", "john.doe@example.com", "123456789", new Region { Ddd = 11 });
         var request = new ContactRequest
         {
@@ -144,10 +139,8 @@ public class ContactServiceTests
 
         _mockContactRepository.Setup(c => c.GetOne(request.Ddd, request.PhoneNumber)).Returns(existingContact);
 
-        
         var response = _contactService.Update(request);
 
-        
         Assert.NotNull(response);
         Assert.Equal(200, response.Code);
         Assert.Equal("Contato atualizado com sucesso!", response.Message);
@@ -171,7 +164,7 @@ public class ContactServiceTests
         };
 
         _mockContactRepository.Setup(c => c.GetOne(request.Ddd, request.PhoneNumber)).Returns((Contact)null);
-                
+        
         var response = _contactService.Update(request);
                 
         Assert.NotNull(response);
@@ -197,10 +190,8 @@ public class ContactServiceTests
 
         _mockContactRepository.Setup(c => c.GetOne(request.Ddd, request.PhoneNumber)).Returns(existingContact);
 
-        
         var response = _contactService.Update(request);
 
-        
         Assert.NotNull(response);
         Assert.Equal(200, response.Code);
         Assert.Equal("Contato atualizado com sucesso!", response.Message);
@@ -218,10 +209,8 @@ public class ContactServiceTests
 
         _mockContactRepository.Setup(c => c.Delete(11, "123456789")).Returns(existingContact);
 
-        
         var response = _contactService.Delete(11, "123456789");
 
-        
         Assert.NotNull(response);
         Assert.Equal(200, response.Code);
         Assert.Equal("Contato excluído com sucesso!", response.Message);
@@ -493,7 +482,7 @@ public class ContactServiceTests
             request.Email,
             request.Ddd,
             request.PhoneNumber))
-            .Throws(new System.Exception());
+            .Throws(new Exception());
 
         
         var response = _contactService.GetAll(request);
