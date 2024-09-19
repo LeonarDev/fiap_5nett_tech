@@ -20,6 +20,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Create_ShouldReturnContactResponse_WhenContactIsCreatedSuccessfully()
     {
         
@@ -47,6 +48,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Create_ShouldReturnBadRequest_WhenRegionNotFound()
     {
         
@@ -72,6 +74,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Create_ShouldReturnBadRequest_WhenPhoneNumberAlreadyExists()
     {
         
@@ -99,6 +102,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Create_ShouldReturnBadRequest_WhenPhoneNumberIsInvalid()
     {
         
@@ -125,6 +129,7 @@ public class ContactServiceTests
 
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Update_ShouldReturnContactResponse_WhenContactIsUpdatedSuccessfully()
     {
         
@@ -153,6 +158,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Update_ShouldReturnNotFound_WhenContactDoesNotExist()
     {
         
@@ -176,6 +182,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Update_ShouldNotChangeFields_WhenRequestFieldsAreNullOrEmpty()
     {
         
@@ -203,6 +210,7 @@ public class ContactServiceTests
         _mockContactRepository.Verify(c => c.Update(existingContact), Times.Once);
     }
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Delete_ShouldReturnContactResponse_WhenContactIsDeletedSuccessfully()
     {
         
@@ -222,6 +230,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Delete_ShouldReturnNotFound_WhenContactDoesNotExist()
     {
         
@@ -239,6 +248,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void Delete_ShouldReturnInternalServerError_WhenExceptionIsThrown()
     {
         
@@ -256,6 +266,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetOneById_ShouldReturnContactResponse_WhenContactIsFound()
     {
         
@@ -276,6 +287,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetOneById_ShouldReturnNotFound_WhenContactDoesNotExist()
     {
         
@@ -295,6 +307,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetOneById_ShouldReturnInternalServerError_WhenExceptionIsThrown()
     {
         
@@ -314,6 +327,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetOneByDddAndPhoneNumber_ShouldReturnContactResponse_WhenContactIsFound()
     {
         
@@ -335,6 +349,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetOneByDddAndPhoneNumber_ShouldReturnNotFound_WhenContactDoesNotExist()
     {
         
@@ -355,6 +370,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetOneByDddAndPhoneNumber_ShouldReturnInternalServerError_WhenExceptionIsThrown()
     {
         
@@ -375,6 +391,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetAll_ShouldReturnPagedContactResponse_WhenContactsAreFound()
     {
         
@@ -419,6 +436,7 @@ public class ContactServiceTests
     }
 
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetAll_ShouldReturnEmptyPagedContactResponse_WhenNoContactsAreFound()
     {
         
@@ -456,6 +474,7 @@ public class ContactServiceTests
     }
     
     [Fact]
+    [Trait("Category", "UnitTest")]
     public void GetAll_ShouldReturnInternalServerError_WhenExceptionIsThrown()
     {
         
