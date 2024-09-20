@@ -11,12 +11,14 @@ public class ContactServiceTests
     private readonly Mock<IContactRepository> _mockContactRepository;
     private readonly Mock<IRegionRepository> _mockRegionRepository;
     private readonly ContactService _contactService;
-
+    
     public ContactServiceTests()
     {
         _mockContactRepository = new Mock<IContactRepository>();
         _mockRegionRepository = new Mock<IRegionRepository>();
         _contactService = new ContactService(_mockContactRepository.Object, _mockRegionRepository.Object);
+        //var bytes = Encoding.UTF8.GetBytes("");
+        //BitConverter.ToString(bytes);
     }
 
     [Fact]
@@ -32,7 +34,7 @@ public class ContactServiceTests
             Ddd = 11
         };
 
-        var region = new Region { Ddd = 11, Name = "São Paulo" };
+        var region = new Region { Ddd = 11, Name = "SÃ£o Paulo" };
         _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(region);
         _mockContactRepository.Setup(c => c.GetOne(request.Ddd, request.PhoneNumber)).Returns((Contact)null);
 
@@ -65,10 +67,11 @@ public class ContactServiceTests
         
         var response = _contactService.Create(request);
 
+        var resposta = response.Message.Normalize();
         
         Assert.NotNull(response);
         Assert.Equal(400, response.Code);
-        Assert.Equal("Regiao nao encontrada!", response.Message.Replace('ã', 'a'));
+        Assert.Equal("RegiÃ£o nÃ£o encontrada!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.Create(It.IsAny<Contact>()), Times.Never);
     }
@@ -87,14 +90,14 @@ public class ContactServiceTests
         };
 
         var existingContact = new Contact("Jane Doe", "jane.doe@example.com", "123456789", new Region { Ddd = 11 });
-        _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(new Region { Ddd = 11, Name = "São Paulo" });
+        _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(new Region { Ddd = 11, Name = "SÃ£o Paulo" });
         _mockContactRepository.Setup(c => c.GetOne(request.Ddd, request.PhoneNumber)).Returns(existingContact);
 
         var response = _contactService.Create(request);
 
         Assert.NotNull(response);
         Assert.Equal(400, response.Code);
-        Assert.Equal("Telefone ja Cadastrado!", response.Message.Replace('á', 'a'));
+        Assert.Equal("Telefone jÃ¡ Cadastrado!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.Create(It.IsAny<Contact>()), Times.Never);
     }
@@ -112,7 +115,7 @@ public class ContactServiceTests
             Ddd = 11
         };
 
-        _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(new Region { Ddd = 11, Name = "São Paulo" });
+        _mockRegionRepository.Setup(r => r.GetOne(request.Ddd)).Returns(new Region { Ddd = 11, Name = "SÃ£o Paulo" });
 
         var response = _contactService.Create(request);
         
@@ -169,7 +172,7 @@ public class ContactServiceTests
                 
         Assert.NotNull(response);
         Assert.Equal(404, response.Code);
-        Assert.Equal("Contato nao encontrado!", response.Message.Replace('ã', 'a'));
+        Assert.Equal("Contato nÃ£o encontrado!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.Update(It.IsAny<Contact>()), Times.Never);
     }
@@ -213,7 +216,7 @@ public class ContactServiceTests
 
         Assert.NotNull(response);
         Assert.Equal(200, response.Code);
-        Assert.Equal("Contato excluido com sucesso!", response.Message.Replace('í', 'i'));
+        Assert.Equal("Contato excluÃ­do com sucesso!", response.Message);
         Assert.NotNull(response.Data);
         _mockContactRepository.Verify(c => c.Delete(11, "123456789"), Times.Once);
     }
@@ -231,7 +234,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(404, response.Code);
-        Assert.Equal("Contato nao encontrado!", response.Message.Replace('ã', 'a'));
+        Assert.Equal("Contato nÃ£o encontrado!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.Delete(11, "123456789"), Times.Once);
     }
@@ -249,7 +252,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(500, response.Code);
-        Assert.Equal("Nao foi possivel Deletar o Contato!", response.Message.Replace('ã', 'a').Replace('í','i'));
+        Assert.Equal("NÃ£o foi possÃ­vel Deletar o Contato!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.Delete(11, "123456789"), Times.Once);
     }
@@ -287,7 +290,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(404, response.Code);
-        Assert.Equal("Contato nao encontrado!", response.Message.Replace('ã', 'a'));
+        Assert.Equal("Contato nÃ£o encontrado!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.GetOne(contactId), Times.Once);
     }
@@ -304,7 +307,7 @@ public class ContactServiceTests
 
         Assert.NotNull(response);
         Assert.Equal(500, response.Code);
-        Assert.Equal("Nao foi possivel recuperar o Contato!", response.Message.Replace('ã', 'a').Replace('í', 'i'));
+        Assert.Equal("NÃ£o foi possÃ­vel recuperar o Contato!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.GetOne(contactId), Times.Once);
     }
@@ -341,7 +344,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(404, response.Code);
-        Assert.Equal("Contato nao encontrado!", response.Message.Replace('ã', 'a'));
+        Assert.Equal("Contato nÃ£o encontrado!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.GetOne(ddd, phoneNumber), Times.Once);
     }
@@ -359,7 +362,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(500, response.Code);
-        Assert.Equal("Nao foi possivel recuperar o Contato!", response.Message.Replace('ã', 'a').Replace('í', 'i'));
+        Assert.Equal("NÃ£o foi possÃ­vel recuperar o Contato!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.GetOne(ddd, phoneNumber), Times.Once);
     }
@@ -469,7 +472,7 @@ public class ContactServiceTests
         
         Assert.NotNull(response);
         Assert.Equal(500, response.Code);
-        Assert.Equal("Não foi possivel consultar os Contatos!", response.Message.Replace('í', 'i'));
+        Assert.Equal("NÃ£o foi possÃ­vel consultar os Contatos!", response.Message);
         Assert.Null(response.Data);
         _mockContactRepository.Verify(c => c.GetAll(
             request.Name,
