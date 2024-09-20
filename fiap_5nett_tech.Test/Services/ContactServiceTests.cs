@@ -17,8 +17,6 @@ public class ContactServiceTests
         _mockContactRepository = new Mock<IContactRepository>();
         _mockRegionRepository = new Mock<IRegionRepository>();
         _contactService = new ContactService(_mockContactRepository.Object, _mockRegionRepository.Object);
-        //var bytes = Encoding.UTF8.GetBytes("");
-        //BitConverter.ToString(bytes);
     }
 
     [Fact]

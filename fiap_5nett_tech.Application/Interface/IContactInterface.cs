@@ -13,6 +13,5 @@ namespace fiap_5nett_tech.Application.Interface
         ContactResponse<Contact?> Update(ContactRequest request);
         PagedContactResponse<List<Contact>?> GetAll(GetAllContactRequest request);
         PagedContactResponse<List<Contact>?> GetAllByDdd(GetAllContactRequest request);
-
     }
 }
