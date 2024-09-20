@@ -5,6 +5,7 @@ namespace fiap_5nett_tech.Test.Entities
     public class CreateContact
     {
         [Fact]
+        [Trait("Category", "UnitTest")]
         public void CriarContatoComSucesso()
         {
             var name = "Teste";
